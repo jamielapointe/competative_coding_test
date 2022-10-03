@@ -1,0 +1,2 @@
+
+add_executable(nearest_point_same_x_y nearest_point_same_x_y.cpp)
