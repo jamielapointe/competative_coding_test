@@ -1,31 +1,35 @@
-#include <algorithm>
+
 #include <cstdint>
 #include <functional>
 #include <iostream>
-#include <iterator>
 #include <list>
 #include <memory>
-#include <queue>
-#include <stdexcept>
+#include <string>
 #include <unordered_map>
 #include <vector>
 
-using std::find_if;
-
+/// \brief represent a node in a graph
+/// This is a basic node with a flag to determine if it has been visited, along
+/// with a unique id key and string label describing the node
 struct Node {
+  /// The key type
   using Key_T = uint32_t;
 
+  /// has the node been visited by a search algorithm
   bool is_visited{false};
-  uint32_t id{0};
-  std::string label{};
+  /// the unique ID
+  Key_T id{0};
+  /// A label describing the node
+  std::string label{0};
 
-  Node(bool is_visited_in, uint32_t id_in, std::string label_in)
+  /// construct a new node
+  Node(bool is_visited_in, Key_T id_in, std::string label_in)
       : is_visited{is_visited_in}, id{id_in}, label{label_in} {}
 
   Key_T key() const { return id; }
 };
 
-class Ordered_Graph {
+class Unordered_Graph {
  public:
   using Node_Pointer = std::shared_ptr<Node>;
   using Node_List = std::vector<Node_Pointer>;
@@ -34,16 +38,17 @@ class Ordered_Graph {
 
   Adjacency_List const& adjacency_list() const { return adjacency_list_; }
 
-  Adjacency_Value& get_edge_nodes(Node::Key_T node_key) {
+  Adjacency_Value* get_edge_nodes(Node::Key_T node_key) {
     auto node_it = adjacency_list_.find(node_key);
     if (node_it != adjacency_list_.end()) {
-      return node_it->second;
+      return &node_it->second;
     }
-    throw std::logic_error("Node" + std::to_string(node_key) + " not found");
+    return nullptr;
   }
 
   void add_edge(Node_Pointer node0, Node_Pointer node1) {
     adjacency_list_[node0->key()].push_back(node1);
+    // unordered map goes in both directions
     adjacency_list_[node1->key()].push_back(node0);
   }
 
@@ -51,38 +56,26 @@ class Ordered_Graph {
   Adjacency_List adjacency_list_;
 };
 
-static void bfs(
-    Ordered_Graph& graph, Ordered_Graph::Node_Pointer& start_node,
-    std::function<void(Ordered_Graph::Node_Pointer&)> callback = nullptr) {
-  std::queue<Ordered_Graph::Node_Pointer> node_queue;
+static void dfs(
+    Unordered_Graph& graph, Unordered_Graph::Node_Pointer& start_node,
+    std::function<void(Unordered_Graph::Node_Pointer&)> callback = nullptr) {
   start_node->is_visited = true;
   if (callback) {
     callback(start_node);
   }
-  node_queue.push(start_node);
-  while (!node_queue.empty()) {
-    Node& node = *node_queue.front();
-    node_queue.pop();
-    Ordered_Graph::Adjacency_Value node_edges;
-    try {
-      node_edges = graph.get_edge_nodes(node.key());
-    } catch (std::logic_error exc) {
-      std::cerr << "Out of Range error: " << exc.what() << '\n';
-      return;
-    }
-    for (auto& edge_node : node_edges) {
-      if (!edge_node->is_visited) {
-        edge_node->is_visited = true;
-        if (callback) {
-          callback(edge_node);
-        }
-        node_queue.push(edge_node);
-      }
+  Unordered_Graph::Adjacency_Value* node_edges_ptr =
+      graph.get_edge_nodes(start_node->key());
+  if (node_edges_ptr == nullptr) {
+    return;
+  }
+  for (auto& edge_node : *node_edges_ptr) {
+    if (!edge_node->is_visited) {
+      dfs(graph, edge_node, callback);
     }
   }
 }
 
-static void print_node(Ordered_Graph::Node_Pointer& node) {
+static void print_node(Unordered_Graph::Node_Pointer& node) {
   std::cout << "Node ID " << node->id << " - " << node->label << std::endl;
 }
 
@@ -98,7 +91,7 @@ int main() {
   static constexpr uint32_t nodeid8{8};
   static constexpr uint32_t nodeid9{9};
 
-  Ordered_Graph graph;
+  Unordered_Graph graph;
   auto node0 = std::make_shared<Node>(false, nodeid0, "Frankfurt");
   auto node1 = std::make_shared<Node>(false, nodeid1, "Mannheim");
   auto node2 = std::make_shared<Node>(false, nodeid2, "Würzburg");
@@ -120,5 +113,5 @@ int main() {
   graph.add_edge(node4, node8);
   graph.add_edge(node5, node9);
 
-  bfs(graph, node0, print_node);
+  dfs(graph, node0, print_node);
 }

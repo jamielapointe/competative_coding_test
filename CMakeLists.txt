@@ -10,18 +10,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED YES)
 set(CMAKE_CXX_EXTENSIONS NO)
 
 option(LaPointe_Enable_Test "Enable Unit Tests" ON)
-option(LaPointe_Enable_Benchmarks "Enable Benchmarks" ON)
-option(LaPointe_Enable_Clang-Tidy "Enable Clang Tidy Checks" ON)
-
-find_package(Boost REQUIRED COMPONENTS filesystem iostreams system)
 
 if(LaPointe_Enable_Clang-Tidy)
     set(CMAKE_CXX_CLANG_TIDY clang-tidy;)
 endif()
 
 add_executable(graph_scc)
-
-target_link_libraries(graph_scc Boost::system Boost::iostreams)
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/src

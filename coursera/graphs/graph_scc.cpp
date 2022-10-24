@@ -3,9 +3,6 @@
 //
 
 #include <algorithm>
-#include <boost/fusion/adapted.hpp>
-#include <boost/iostreams/device/mapped_file.hpp>
-#include <boost/spirit/home/x3.hpp>
 #include <cstdint>
 #include <fstream>
 #include <iostream>

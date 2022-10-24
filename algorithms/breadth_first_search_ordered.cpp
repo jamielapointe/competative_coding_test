@@ -16,10 +16,10 @@ struct Node {
   using Key_T = uint32_t;
 
   bool is_visited{false};
-  uint32_t id{0};
+  Key_T id{0};
   std::string label{};
 
-  Node(bool is_visited_in, uint32_t id_in, std::string label_in)
+  Node(bool is_visited_in, Key_T id_in, std::string label_in)
       : is_visited{is_visited_in}, id{id_in}, label{label_in} {}
 
   Key_T key() const { return id; }
@@ -34,17 +34,16 @@ class Ordered_Graph {
 
   Adjacency_List const& adjacency_list() const { return adjacency_list_; }
 
-  Adjacency_Value& get_edge_nodes(Node::Key_T node_key) {
+  Adjacency_Value* get_edge_nodes(Node::Key_T node_key) {
     auto node_it = adjacency_list_.find(node_key);
     if (node_it != adjacency_list_.end()) {
-      return node_it->second;
+      return &node_it->second;
     }
-    throw std::logic_error("Node" + std::to_string(node_key) + " not found");
+    return nullptr;
   }
 
-  void add_edge(Node_Pointer node0, Node_Pointer node1) {
-    adjacency_list_[node0->key()].push_back(node1);
-    adjacency_list_[node1->key()].push_back(node0);
+  void add_edge(Node_Pointer head_node, Node_Pointer tail_node) {
+    adjacency_list_[head_node->key()].push_back(tail_node);
   }
 
  private:
@@ -63,14 +62,12 @@ static void bfs(
   while (!node_queue.empty()) {
     Node& node = *node_queue.front();
     node_queue.pop();
-    Ordered_Graph::Adjacency_Value node_edges;
-    try {
-      node_edges = graph.get_edge_nodes(node.key());
-    } catch (std::logic_error exc) {
-      std::cerr << "Out of Range error: " << exc.what() << '\n';
-      return;
+    Ordered_Graph::Adjacency_Value* node_edges_ptr =
+        graph.get_edge_nodes(node.key());
+    if (node_edges_ptr == nullptr) {
+      continue;
     }
-    for (auto& edge_node : node_edges) {
+    for (auto& edge_node : *node_edges_ptr) {
       if (!edge_node->is_visited) {
         edge_node->is_visited = true;
         if (callback) {
