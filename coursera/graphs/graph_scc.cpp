@@ -3,9 +3,12 @@
 //
 
 #include <algorithm>
+#include <cassert>
 #include <cstdint>
 #include <fstream>
+#include <ios>
 #include <iostream>
+#include <iterator>
 #include <list>
 #include <memory>
 #include <sstream>
@@ -121,8 +124,6 @@ struct Edge_Node_Ids {
   uint32_t tail_node{0};
 };
 
-BOOST_FUSION_ADAPT_STRUCT(Edge_Node_Ids, head_node, tail_node)
-
 class Graph {
  public:
   Graph() = default;
@@ -224,6 +225,31 @@ void Graph::do_scc() {
   set_forward();
 }
 
+inline Graph read_data() {
+  std::string const fname("data/SCC.txt");
+  std::ifstream data_file(fname);
+  // allow the counting of new line characters
+  data_file.unsetf(std::ios_base::skipws);
+  // count the new lines with a C++ STL algorithm
+  uint32_t num_nodes = std::count(std::istream_iterator<char>(data_file),
+                                  std::istream_iterator<char>(), '\n');
+  Graph graph(num_nodes);
+  data_file.clear();            // clear the EOF flag
+  data_file.seekg(0);           // go to start of file
+  assert(data_file.is_open());  // NOLINT
+  assert(data_file.good());     // NOLINT
+  for (std::string line; std::getline(data_file, line);) {
+    std::istringstream ss(line);
+    Edge_Node_Ids data;
+    ss >> data.head_node;
+    ss >> data.tail_node;
+    if (data.head_node != data.tail_node) {
+      graph.add_edge(data);
+    }
+  }
+  return graph;
+}
+
 int main() {
   // TEST 0 - add a simple directed graph
   static constexpr std::size_t NUM_NODES_GRAPH_0{5};
@@ -248,29 +274,7 @@ int main() {
   cout << endl << endl;
   cout << "Corsera Quiz Top SCCs:" << endl;
 
-  // Build a graph from a text file
-  namespace x3 = boost::spirit::x3;
-  static constexpr uint32_t max_nodes{875714};
-  Graph graph1(max_nodes);
-
-  std::string fname("data/SCC.txt");
-  boost::iostreams::mapped_file source{fname,
-                                       boost::iostreams::mapped_file::readonly};
-  using iterator = char const*;
-  boost::iterator_range<iterator> range{
-      source.const_data(), source.const_data() + source.size()};  // NOLINT
-
-  iterator f = range.begin();
-  iterator l = range.end();
-
-  Edge_Node_Ids data;
-  while (f && f != l) {
-    if (phrase_parse(f, l, x3::uint_ >> x3::uint_, x3::space, data)) {
-      if (data.head_node != data.tail_node) {
-        graph1.add_edge(data);
-      }
-    }
-  }
+  Graph graph1 = read_data();
 
   // Do the SCC from the graph built from a text file
   graph1.do_scc();

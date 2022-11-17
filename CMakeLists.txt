@@ -9,9 +9,9 @@ set(CMAKE_CXX_STANDARD 20 CACHE STRING "C++ standard to conform to")
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 set(CMAKE_CXX_EXTENSIONS NO)
 
-option(LaPointe_Enable_Test "Enable Unit Tests" ON)
+option(LaPointe_Enable_Clang_Tidy "Enable Clang Tidy static analysis" ON)
 
-if(LaPointe_Enable_Clang-Tidy)
+if(LaPointe_Enable_Clang_Tidy)
     set(CMAKE_CXX_CLANG_TIDY clang-tidy;)
 endif()
 
@@ -37,3 +37,5 @@ add_subdirectory(algorithms)
 add_subdirectory(coursera)
 add_subdirectory(hacker_rank)
 add_subdirectory(leet_code)
+
+file(COPY data/ DESTINATION data/)

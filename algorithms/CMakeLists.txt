@@ -2,3 +2,4 @@
 add_executable(breadth_first_search_unordered breadth_first_search_unordered.cpp)
 add_executable(breadth_first_search_ordered   breadth_first_search_ordered.cpp)
 add_executable(depth_first_search_unordered depth_first_search_unordered.cpp)
+add_executable(strongly_connected_components_ordered strongly_connected_components_ordered.cpp)
