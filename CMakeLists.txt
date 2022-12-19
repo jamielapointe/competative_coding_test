@@ -18,13 +18,13 @@ endif()
 add_executable(graph_scc)
 
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/graph
+    ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR})
 
 if(MSVC)
 else()
-    add_compile_options(-Weverything
+    add_compile_options(
+        -Weverything
         -Werror
         -Wno-pre-c++17-compat
         -Wno-c++98-compat

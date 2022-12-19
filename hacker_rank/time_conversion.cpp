@@ -45,15 +45,17 @@ static inline std::string &rtrim(std::string &s) {
 }
 
 static inline string timeConversion(string s) {
+  static constexpr std::size_t k_timeStringLength{8};
+  static constexpr uint32_t k_maxHour{12};
   rtrim(ltrim(s));
-  std::string time = s.substr(0, 8);
-  std::string am_pm = s.substr(8);
+  std::string time = s.substr(0, k_timeStringLength);
+  std::string am_pm = s.substr(k_timeStringLength);
   std::vector<string> split_time = split(time, ":");
   auto hour{stoi(split_time[0])};
-  if (hour == 12 && am_pm == "AM") {
+  if (hour == k_maxHour && am_pm == "AM") {
     hour = 0;
-  } else if (hour != 12 && am_pm == "PM") {
-    hour += 12;
+  } else if (hour != k_maxHour && am_pm == "PM") {
+    hour += k_maxHour;
   }
   stringstream ss;
   ss << setw(2) << setfill('0') << hour;

@@ -18,6 +18,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
+#include <vector>
 
 using namespace std;  // NOLINT I don't care about this right now
 
