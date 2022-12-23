@@ -114,11 +114,10 @@ void quick_sort(Array& arr, int32_t begin, int32_t end) {
   }
 }
 
-template <typename Iterator>
-void print_array(Iterator front_it, Iterator end_it) {
-  while (front_it != end_it) {
-    std::cout << *front_it << std::endl;
-    ++front_it;
+template <typename Container>
+void print_array(Container const& container) {
+  for (auto const& node : container) {
+    std::cout << node << std::endl;
   }
   std::cout << std::endl;
 }
@@ -137,7 +136,7 @@ int main() {
   std::array<int, 1> arr0{};
   arr0[0] = distribution(generator);
   algorithms::quick_sort(arr0, 0, static_cast<int32_t>(arr0.size()) - 1);
-  algorithms::print_array(arr0.begin(), arr0.end());
+  algorithms::print_array(arr0);
 
   std::cout << "Array 1 test" << std::endl;
   static constexpr int32_t arr_size{25};
@@ -146,14 +145,13 @@ int main() {
     arr1.at(i) = distribution(generator);
   }
   algorithms::quick_sort(arr1, 0, static_cast<int32_t>(arr1.size()) - 1);
-  algorithms::print_array(arr1.begin(), arr1.end());
+  algorithms::print_array(arr1);
 
   std::cout << "List 0 test" << std::endl;
   std::list<int> my_list{};
   for (std::size_t i = 0; i < arr_size; ++i) {
-    auto random_val = distribution(generator);
-    my_list.push_back(random_val);
+    my_list.push_back(distribution(generator));
   }
   algorithms::quick_sort(my_list.begin(), my_list.end());
-  algorithms::print_array(my_list.begin(), my_list.end());
+  algorithms::print_array(my_list);
 }

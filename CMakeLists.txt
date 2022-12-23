@@ -21,16 +21,21 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR})
 
-if(MSVC)
-else()
+if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
     add_compile_options(
-        -Weverything
         -Werror
         -Wno-pre-c++17-compat
         -Wno-c++98-compat
         -Wno-c++98-compat-pedantic
         -Wno-global-constructors
-        -Wno-padded)
+        -Wno-padded
+        -Wno-unsafe-buffer-usage)
+
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        add_compile_options(-Wall)
+    elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        add_compile_options(-Weverything)
+    endif()
 endif()
 
 add_subdirectory(algorithms)
