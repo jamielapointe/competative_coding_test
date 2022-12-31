@@ -9,6 +9,10 @@ set(CMAKE_CXX_STANDARD 20 CACHE STRING "C++ standard to conform to")
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 set(CMAKE_CXX_EXTENSIONS NO)
 
+set(LaPointe_Alg_Base_Dir ${CMAKE_CURRENT_SOURCE_DIR})
+
+add_subdirectory(third_party)
+
 option(LaPointe_Enable_Clang_Tidy "Enable Clang Tidy static analysis" ON)
 
 if(LaPointe_Enable_Clang_Tidy)
@@ -24,17 +28,21 @@ include_directories(
 if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
     add_compile_options(
         -Werror
-        -Wno-pre-c++17-compat
-        -Wno-c++98-compat
-        -Wno-c++98-compat-pedantic
-        -Wno-global-constructors
         -Wno-padded
-        -Wno-unsafe-buffer-usage)
+      )
 
     if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-        add_compile_options(-Wall)
+        add_compile_options(
+          -Wall
+        )
     elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-        add_compile_options(-Weverything)
+        add_compile_options(
+          -Weverything
+          -Wno-pre-c++17-compat
+          -Wno-c++98-compat
+          -Wno-c++98-compat-pedantic
+          -Wno-unsafe-buffer-usage
+        )
     endif()
 endif()
 

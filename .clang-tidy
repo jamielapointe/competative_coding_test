@@ -1,7 +1,7 @@
 ---
 Checks: "-*,cppcoreguidelines-*"
 WarningsAsErrors: "-*,cppcoreguidelines-*"
-HeaderFilterRegex: "^((?!/googletest/|/test/|/benchmark/|/googlebenchmark/|/third_party/).)*$"
+HeaderFilterRegex: "^((?!\/googletest\/|\/test\/|\/benchmark\/|\/googlebenchmark\/|\/third_party\/|gtest).)*$"
 AnalyzeTemporaryDtors: false
 FormatStyle: none
 User: jamielapointe
