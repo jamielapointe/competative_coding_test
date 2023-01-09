@@ -19,8 +19,6 @@ if(LaPointe_Enable_Clang_Tidy)
     set(CMAKE_CXX_CLANG_TIDY clang-tidy;)
 endif()
 
-add_executable(graph_scc)
-
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR})
