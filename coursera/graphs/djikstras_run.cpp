@@ -62,7 +62,7 @@ inline Unordered_Graph read_data() {
 int main() {
   // Coursera Quiz for SCC graph
   cout << endl << endl;
-  cout << "Corsera Quiz Dijkstra's Algorithm:" << endl;
+  cout << "Coursera Quiz Dijkstra's Algorithm:" << endl;
 
   Unordered_Graph graph = read_data();
   Node::Key_T root_key{1};

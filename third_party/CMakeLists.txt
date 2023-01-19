@@ -1,2 +1,3 @@
 
-add_subdirectory(googletest)
+add_subdirectory(googletest SYSTEM)
+add_subdirectory(googlebenchmark SYSTEM)
