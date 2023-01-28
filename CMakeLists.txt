@@ -18,7 +18,7 @@ message(STATUS ${BENCHMARK_INCLUDE})
 
 option(LaPointe_Enable_Clang_Tidy "Enable Clang Tidy static analysis" ON)
 option(LaPointe_Enable_LTO "Enable Link Time Optimization (LTO)" OFF)
-option(LaPointe_Enable_PFM "Enable libpfm" ON)
+option(LaPointe_Enable_PFM "Enable libpfm" OFF)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
   option(LaPointe_Enable_Sample_Based_Profiling "Enable Clang sample based profiling" ON)

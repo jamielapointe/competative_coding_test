@@ -2,7 +2,7 @@
 
 #include "gtest/gtest.h"
 #include "merge_sort.h"
-#include "utilities.h"
+#include "test_utilities.h"
 
 namespace {
 

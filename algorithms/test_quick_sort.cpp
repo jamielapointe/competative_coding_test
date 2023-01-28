@@ -2,6 +2,7 @@
 
 #include "gtest/gtest.h"
 #include "quick_sort.h"
+#include "test_utilities.h"
 
 namespace {
 

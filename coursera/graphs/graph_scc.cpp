@@ -29,18 +29,12 @@ class Vertex {
   Vertex() = default;
   explicit Vertex(uint32_t node_id_in) : node_id_{node_id_in} {}
   void add_edge(Vertex& tail_vertex);
-  bool operator==(Vertex const& other) {
-    return this->node_id() == other.node_id();
-  }
+  bool operator==(Vertex const& other) { return this->node_id() == other.node_id(); }
 
   size_t num_edges() const { return edges().size(); }
 
-  std::list<Edge>& edges(bool is_reverse = false) {
-    return is_reverse ? reverse_edges_ : edges_;
-  }
-  std::list<Edge> const& edges(bool is_reverse = false) const {
-    return is_reverse ? reverse_edges_ : edges_;
-  }
+  std::list<Edge>& edges(bool is_reverse = false) { return is_reverse ? reverse_edges_ : edges_; }
+  std::list<Edge> const& edges(bool is_reverse = false) const { return is_reverse ? reverse_edges_ : edges_; }
 
   uint32_t node_id() const { return node_id_; }
 
@@ -48,13 +42,10 @@ class Vertex {
   void set_was_visited(bool was_visited_in) { was_visited_ = was_visited_in; }
 
   uint32_t finishing_time() const { return finishing_time_; }
-  void set_finishing_time(uint32_t finishing_time_in) {
-    finishing_time_ = finishing_time_in;
-  }
+  void set_finishing_time(uint32_t finishing_time_in) { finishing_time_ = finishing_time_in; }
 
  private:
-  std::list<Edge>
-      edges_{};  // only edges of which the current Vertex is the head
+  std::list<Edge> edges_{};  // only edges of which the current Vertex is the head
   std::list<Edge> reverse_edges_{};
   uint32_t node_id_{0};
   uint32_t finishing_time_{0};
@@ -68,20 +59,14 @@ void Vertex::add_edge(Vertex& tail_vertex) {
 
 template <>
 struct std::hash<Vertex> {
-  std::size_t operator()(Vertex const& node) const noexcept {
-    return std::hash<uint32_t>{}(node.node_id());
-  }
+  std::size_t operator()(Vertex const& node) const noexcept { return std::hash<uint32_t>{}(node.node_id()); }
 };
 
 class Edge {
  public:
-  Edge(Vertex& head_node, Vertex& tail_node)
-      : head_node_{&head_node}, tail_node_{&tail_node} {}
+  Edge(Vertex& head_node, Vertex& tail_node) : head_node_{&head_node}, tail_node_{&tail_node} {}
 
-  bool operator==(Edge const& other) {
-    return head_node_->node_id() == other.head_node_->node_id() &&
-           tail_node_->node_id() == other.tail_node_->node_id();
-  }
+  bool operator==(Edge const& other) { return head_node_->node_id() == other.head_node_->node_id() && tail_node_->node_id() == other.tail_node_->node_id(); }
 
   Vertex& head_node() { return *head_node_; }
   Vertex const& head_node() const { return *head_node_; }
@@ -97,8 +82,7 @@ struct Scc {
   std::list<Vertex*> nodes;
 };
 
-void dfs_scc_first(bool is_reverse, Vertex& node,
-                   std::stack<Vertex*>& vertices_first_past_order) {
+void dfs_scc_first(bool is_reverse, Vertex& node, std::stack<Vertex*>& vertices_first_past_order) {
   node.set_was_visited(true);
   for (auto& edge : node.edges(is_reverse)) {
     Vertex& tail_node = edge.tail_node();
@@ -144,12 +128,8 @@ class Graph {
   void set_reverse() { is_reverse_ = true; }
   void set_forward() { is_reverse_ = false; }
 
-  std::stack<Vertex*>& vertices_first_past_order() {
-    return vertices_first_past_order_;
-  }
-  std::stack<Vertex*> const& vertices_first_past_order() const {
-    return vertices_first_past_order_;
-  }
+  std::stack<Vertex*>& vertices_first_past_order() { return vertices_first_past_order_; }
+  std::stack<Vertex*> const& vertices_first_past_order() const { return vertices_first_past_order_; }
 
   std::vector<Scc> const& scces() const { return scces_; }
 
@@ -176,9 +156,7 @@ void Graph::reset_visited_nodes() {
 }
 
 Vertex& Graph::add_vertex(uint32_t node_id) {
-  auto node2 = vertices_.emplace(std::piecewise_construct,
-                                 std::forward_as_tuple(std::move(node_id)),
-                                 std::forward_as_tuple(node_id));
+  auto node2 = vertices_.emplace(std::piecewise_construct, std::forward_as_tuple(std::move(node_id)), std::forward_as_tuple(node_id));
   return node2.first->second;
 }
 
@@ -217,9 +195,7 @@ void Graph::do_scc() {
     }
   }
 
-  auto comp = [&](Scc const& scc0, Scc const& scc1) {
-    return scc0.nodes.size() > scc1.nodes.size();
-  };
+  auto comp = [&](Scc const& scc0, Scc const& scc1) { return scc0.nodes.size() > scc1.nodes.size(); };
   std::sort(scces_.begin(), scces_.end(), comp);
 
   // reset the reverse graph
@@ -232,8 +208,7 @@ inline Graph read_data() {
   // allow the counting of new line characters
   data_file.unsetf(std::ios_base::skipws);
   // count the new lines with a C++ STL algorithm
-  uint32_t num_nodes = std::count(std::istream_iterator<char>(data_file),
-                                  std::istream_iterator<char>(), '\n');
+  auto num_nodes = std::count(std::istream_iterator<char>(data_file), std::istream_iterator<char>(), '\n');
   Graph graph(num_nodes);
   data_file.clear();            // clear the EOF flag
   data_file.seekg(0);           // go to start of file
@@ -264,8 +239,7 @@ int main() {
 
   graph->do_scc();
 
-  size_t const max_index{
-      std::min(static_cast<size_t>(5), graph->scces().size())};
+  size_t const max_index{std::min(static_cast<size_t>(5), graph->scces().size())};
   cout << "top SCC sizes:" << endl;
   for (uint32_t index = 0; index < max_index; ++index) {
     cout << graph->scces().at(index).nodes.size() << endl;
@@ -281,8 +255,7 @@ int main() {
   graph1.do_scc();
 
   // Print the top 5 largest SCCs
-  size_t const max_index2{
-      std::min(static_cast<size_t>(5), graph1.scces().size())};
+  size_t const max_index2{std::min(static_cast<size_t>(5), graph1.scces().size())};
   cout << "top SCC sizes:" << endl;
   for (uint32_t index = 0; index < max_index2; ++index) {
     cout << graph1.scces().at(index).nodes.size() << endl;
