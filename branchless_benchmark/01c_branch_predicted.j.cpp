@@ -6,23 +6,20 @@
 #include <random>
 
 static void BM_01c_branch_predicted(benchmark::State& state) {
-  static constexpr int kDefaultSeed{1};
-  std::mt19937 gen(kDefaultSeed);  // repeatable results
-  std::uniform_int_distribution<> distribution{};
+  srand(1);
   auto const N = static_cast<size_t>(state.range(0));
   std::vector<int64_t> v1(static_cast<size_t>(N)), v2(static_cast<size_t>(N));
   std::vector<int> c1(static_cast<size_t>(N));
   for (size_t i = 0; i < N; ++i) {
-    v1[i] = distribution(gen);
-    v2[i] = distribution(gen);
-    if (i == 0)
-      c1[i] = distribution(gen) >= 0;
+    v1[i] = rand();
+    v2[i] = rand();
+    if (i == 0)  // alternate true & false
+      c1[i] = rand() >= 0;
     else
       c1[i] = !c1[i - 1];
   }
-  auto p1 = v1.data();
-  auto p2 = v2.data();
-  (void)p2;
+  auto* p1 = v1.data();
+  auto* p2 = v2.data();
   int* b1 = c1.data();
   for (auto _ : state) {
     int64_t a1 = 0;

@@ -48,8 +48,12 @@ if((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR (CMAKE_CXX_COMPILER_ID STREQUAL "
           -Wno-pre-c++17-compat
           -Wno-c++98-compat
           -Wno-c++98-compat-pedantic
-          -Wno-unsafe-buffer-usage
         )
+        if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 16)
+          add_compile_options(
+            -Wno-unsafe-buffer-usage
+          )
+        endif()
     endif()
 endif()
 

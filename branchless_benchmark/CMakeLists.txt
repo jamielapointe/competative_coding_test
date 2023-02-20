@@ -62,8 +62,8 @@ target_include_directories(branchless_benchmark PRIVATE ${BENCHMARK_INCLUDE})
 
 target_link_libraries(branchless_benchmark PRIVATE benchmark::benchmark)
 
-if (LaPointe_Enable_Sample_Based_Profiling)
-  target_link_libraries(branchless_benchmark PRIVATE profiler)
-endif()
+# if (LaPointe_Enable_Sample_Based_Profiling)
+#   target_link_libraries(branchless_benchmark PRIVATE profiler)
+# endif()
 
 target_link_libraries(branchless_benchmark PRIVATE Threads::Threads)
