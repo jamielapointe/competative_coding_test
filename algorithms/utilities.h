@@ -7,6 +7,7 @@
 #include <cassert>
 #include <iostream>
 #include <sstream>
+#include <type_traits>
 
 namespace algorithms {
 
@@ -72,6 +73,41 @@ void test_sort(Sorted_Container const& container) {
   Sorted_Container copy{container};
   sort(copy);
   test_containers_equal(container, copy);
+}
+
+// template <typename T>
+// void swap(T& left, T& right) {
+//   T temp = left;
+//   left = right;
+//   right = temp;
+// }
+
+template <typename Iterator>
+void swap(Iterator begin_it, Iterator end_it) {
+  auto tmp = *begin_it;
+  *begin_it = *end_it;
+  *end_it = tmp;
+}
+
+template <typename Array>
+void swap(Array& arr, int a, int b) {
+  auto tmp = arr.at(static_cast<std::size_t>(a));
+  arr.at(static_cast<std::size_t>(a)) = arr.at(static_cast<std::size_t>(b));
+  arr.at(static_cast<std::size_t>(b)) = tmp;
+}
+
+template <typename Integer>
+constexpr bool is_even(Integer value)
+  requires(std::integral<Integer>)
+{
+  return value % 2 == 0;
+}
+
+template <typename Integer>
+constexpr bool is_odd(Integer value)
+  requires(std::integral<Integer>)
+{
+  return !is_even(value);
 }
 
 }  // namespace algorithms

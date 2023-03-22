@@ -11,19 +11,6 @@ namespace algorithms {
 // on forward iterators (such as linked list).  These show just the basic
 // implementations not the optimized ones for very large containers.
 
-template <typename Iterator>
-void swap(Iterator begin_it, Iterator end_it) {
-  auto tmp = *begin_it;
-  *begin_it = *end_it;
-  *end_it = tmp;
-}
-template <typename Array>
-void swap(Array& arr, int a, int b) {
-  auto tmp = arr.at(static_cast<std::size_t>(a));
-  arr.at(static_cast<std::size_t>(a)) = arr.at(static_cast<std::size_t>(b));
-  arr.at(static_cast<std::size_t>(b)) = tmp;
-}
-
 inline int pivot(int begin, int end) {
   (void)begin;
   return end;

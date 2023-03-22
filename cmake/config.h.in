@@ -1,0 +1,2 @@
+
+#cmakedefine EXECUTABLE_BASE_DIR "@EXECUTABLE_BASE_DIR@"

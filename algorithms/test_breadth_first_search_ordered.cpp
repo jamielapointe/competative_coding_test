@@ -2,6 +2,7 @@
 
 #include "breadth_first_search_ordered.h"
 #include "gtest/gtest.h"
+#include "test_utilities.h"
 #include "utilities.h"
 
 namespace {

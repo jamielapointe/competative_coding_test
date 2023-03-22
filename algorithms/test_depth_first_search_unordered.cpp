@@ -2,6 +2,7 @@
 
 #include "depth_first_search_unordered.h"
 #include "gtest/gtest.h"
+#include "test_utilities.h"
 #include "utilities.h"
 
 namespace {

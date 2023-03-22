@@ -12,6 +12,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED YES)
 set(CMAKE_CXX_EXTENSIONS NO)
 
 set(LaPointe_Alg_Base_Dir ${CMAKE_CURRENT_SOURCE_DIR})
+set(EXECUTABLE_BASE_DIR ${CMAKE_CURRENT_BINARY_DIR})
 
 set(BENCHMARK_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/third_party/googlebenchmark/include)
 message(STATUS ${BENCHMARK_INCLUDE})
@@ -79,3 +80,4 @@ add_subdirectory(hacker_rank)
 add_subdirectory(leet_code)
 
 file(COPY data/ DESTINATION data/)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h @ONLY NEWLINE_STYLE UNIX)
