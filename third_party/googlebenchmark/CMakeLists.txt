@@ -49,7 +49,7 @@ option(BENCHMARK_DOWNLOAD_DEPENDENCIES "Allow the downloading and in-tree buildi
 option(BENCHMARK_ENABLE_GTEST_TESTS "Enable building the unit tests which depend on gtest" OFF)
 option(BENCHMARK_USE_BUNDLED_GTEST "Use bundled GoogleTest. If disabled, the find_package(GTest) will be used." OFF)
 
-option(BENCHMARK_ENABLE_LIBPFM "Enable performance counters provided by libpfm" ON)
+option(BENCHMARK_ENABLE_LIBPFM "Enable performance counters provided by libpfm" ${LaPointe_Enable_PFM})
 
 # Export only public symbols
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
