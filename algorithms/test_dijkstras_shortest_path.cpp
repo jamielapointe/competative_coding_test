@@ -1,7 +1,8 @@
+#include <gtest/gtest.h>
+
 #include <vector>
 
 #include "dijkstras_shortest_path.h"
-#include "gtest/gtest.h"
 #include "test_utilities.h"
 
 namespace {

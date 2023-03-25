@@ -2,8 +2,9 @@
 // statistics_test - Unit tests for src/statistics.cc
 //===---------------------------------------------------------------------===//
 
+#include <gtest/gtest.h>
+
 #include "../src/statistics.h"
-#include "gtest/gtest.h"
 
 namespace {
 TEST(StatisticsTest, Mean) {

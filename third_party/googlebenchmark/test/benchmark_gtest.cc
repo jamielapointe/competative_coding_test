@@ -1,3 +1,5 @@
+#include <gtest/gtest.h>
+
 #include <map>
 #include <string>
 #include <vector>
@@ -5,7 +7,6 @@
 #include "../src/benchmark_register.h"
 #include "benchmark/benchmark.h"
 #include "gmock/gmock.h"
-#include "gtest/gtest.h"
 
 namespace benchmark {
 namespace internal {

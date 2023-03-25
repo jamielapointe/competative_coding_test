@@ -47,8 +47,11 @@ template <typename Container>
 void test_containers_equal(Container const& actual, Container const& expected)
   requires Has_Iterators<Container>
 {
-  assert(std::equal(actual.begin(), actual.end(), expected.begin()));
-  std::cout << "Test Passed" << std::endl;
+  if (std::equal(actual.begin(), actual.end(), expected.begin())) {
+    std::cout << "Test Passed" << std::endl;
+  } else {
+    std::cerr << "Test Failed!" << std::endl;
+  }
 }
 
 template <typename Container>

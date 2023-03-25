@@ -1,7 +1,8 @@
+#include <gtest/gtest.h>
+
 #include <thread>
 
 #include "../src/perf_counters.h"
-#include "gtest/gtest.h"
 
 #ifndef GTEST_SKIP
 struct MsgHandler {

@@ -1,9 +1,10 @@
+#include <gtest/gtest.h>
+
 #include <cstdlib>
 
 #include "../src/commandlineflags.h"
 #include "../src/internal_macros.h"
 #include "gmock/gmock.h"
-#include "gtest/gtest.h"
 
 namespace benchmark {
 namespace {

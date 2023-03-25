@@ -140,8 +140,6 @@ if(GTEST_HAS_ABSL)
     absl::variant
     re2::re2
   )
-else()
-  target_compile_definitions(gtest PUBLIC GTEST_HAS_ABSL=0)
 endif()
 cxx_library(gtest_main "${cxx_strict}" src/gtest_main.cc)
 set_target_properties(gtest_main PROPERTIES VERSION ${GOOGLETEST_VERSION})

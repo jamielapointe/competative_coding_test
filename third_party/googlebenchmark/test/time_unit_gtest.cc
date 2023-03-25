@@ -1,5 +1,6 @@
+#include <gtest/gtest.h>
+
 #include "../include/benchmark/benchmark.h"
-#include "gtest/gtest.h"
 
 namespace benchmark {
 namespace internal {

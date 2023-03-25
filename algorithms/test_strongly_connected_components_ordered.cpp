@@ -1,6 +1,7 @@
+#include <gtest/gtest.h>
+
 #include <vector>
 
-#include "gtest/gtest.h"
 #include "strongly_connected_components_ordered.h"
 #include "test_utilities.h"
 #include "utilities.h"

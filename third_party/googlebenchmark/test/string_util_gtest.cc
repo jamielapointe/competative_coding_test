@@ -2,9 +2,10 @@
 // statistics_test - Unit tests for src/statistics.cc
 //===---------------------------------------------------------------------===//
 
+#include <gtest/gtest.h>
+
 #include "../src/internal_macros.h"
 #include "../src/string_util.h"
-#include "gtest/gtest.h"
 
 namespace {
 TEST(StringUtilTest, stoul) {

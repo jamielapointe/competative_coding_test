@@ -2,8 +2,8 @@
 #pragma once
 
 #include <bits/iterator_concepts.h>
+#include <gtest/gtest.h>
 
-#include "gtest/gtest.h"
 #include "utilities.h"
 
 namespace algorithms {

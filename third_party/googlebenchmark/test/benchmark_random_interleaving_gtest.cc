@@ -1,3 +1,5 @@
+#include <gtest/gtest.h>
+
 #include <queue>
 #include <string>
 #include <vector>
@@ -6,7 +8,6 @@
 #include "../src/string_util.h"
 #include "benchmark/benchmark.h"
 #include "gmock/gmock.h"
-#include "gtest/gtest.h"
 
 namespace benchmark {
 
