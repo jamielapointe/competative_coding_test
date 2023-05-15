@@ -1,5 +1,4 @@
 
-
 add_executable(test_algorithms test_binary_heap.cpp
                                test_breadth_first_search_ordered.cpp
                                test_breadth_first_search_unordered.cpp
