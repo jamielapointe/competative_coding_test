@@ -15,7 +15,7 @@ namespace algorithms {
 namespace dijkstra_shortest_path {
 
 struct Node {
-  using Key_T = int32_t;
+  using Key_T = int64_t;
 
   bool is_visited{false};
   Key_T id{0};
