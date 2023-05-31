@@ -13,9 +13,12 @@ set(CMAKE_CXX_EXTENSIONS NO)
 
 set(LaPointe_Alg_Base_Dir ${CMAKE_CURRENT_SOURCE_DIR})
 set(EXECUTABLE_BASE_DIR ${CMAKE_CURRENT_BINARY_DIR})
+set(THIRD_PARTY_BASE_DIR ${LaPointe_Alg_Base_Dir}/third_party)
+set(GOOGLETEST_BASE_DIR ${THIRD_PARTY_BASE_DIR}/googletest)
 
-set(BENCHMARK_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/third_party/googlebenchmark/include)
-message(STATUS ${BENCHMARK_INCLUDE})
+set(BENCHMARK_INCLUDE ${THIRD_PARTY_BASE_DIR}/googlebenchmark/include)
+set(GOOGLETEST_INCLUDE ${GOOGLETEST_BASE_DIR}/googletest/include)
+set(GOOGLEMOCK_INCLUDE ${GOOGLETEST_BASE_DIR}/googlemock/include)
 
 option(LaPointe_Enable_Clang_Tidy "Enable Clang Tidy static analysis" ON)
 option(LaPointe_Enable_LTO "Enable Link Time Optimization (LTO)" OFF)
