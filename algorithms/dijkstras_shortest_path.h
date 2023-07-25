@@ -52,10 +52,10 @@ class Unordered_Graph {
   Adjacency_List const &adjacency_list() const { return adjacency_list_; }
   int number_of_nodes() const { return static_cast<int>(node_map_.size()); }
 
-  Adjacency_Value &get_edge_nodes(Node::Key_T node_key) {
-    auto node_it = adjacency_list_.find(node_key);
-    if (node_it != adjacency_list_.end()) {
-      return node_it->second;
+  Adjacency_Value &get_edges(Node::Key_T node_key) {
+    auto edge_iterator = adjacency_list_.find(node_key);
+    if (edge_iterator != adjacency_list_.end()) {
+      return edge_iterator->second;
     }
     throw std::logic_error("Node" + std::to_string(node_key) + " not found");
   }

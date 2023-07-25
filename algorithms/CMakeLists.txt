@@ -6,6 +6,7 @@ add_executable(test_algorithms test_binary_heap.cpp
                                test_dijkstras_shortest_path.cpp
                                test_insertion_sort.cpp
                                test_main.cpp
+                               test_max_spacing_k_clustering.cpp
                                test_quick_sort.cpp
                                test_strongly_connected_components_ordered.cpp)
 

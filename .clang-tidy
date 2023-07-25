@@ -4,7 +4,7 @@ WarningsAsErrors: "-*,cppcoreguidelines-*"
 HeaderFilterRegex: "^((?!\/googletest\/|\/test\/|\/benchmark\/|\/googlebenchmark\/|\/third_party\/|gtest).)*$"
 AnalyzeTemporaryDtors: false
 FormatStyle: none
-User: jamielapointe
+User: none
 CheckOptions:
   modernize-replace-auto-ptr.IncludeStyle: llvm
   cppcoreguidelines-no-malloc.Reallocations: "::realloc"
