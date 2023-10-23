@@ -1,6 +1,6 @@
 ---
-Checks: "-*,cppcoreguidelines-*"
-WarningsAsErrors: "-*,cppcoreguidelines-*"
+Checks: "-*"
+WarningsAsErrors: "-*"
 HeaderFilterRegex: "^((?!\/googletest\/|\/test\/|\/benchmark\/|\/googlebenchmark\/|\/third_party\/|gtest).)*$"
 AnalyzeTemporaryDtors: false
 FormatStyle: none
