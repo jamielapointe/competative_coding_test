@@ -8,6 +8,7 @@ add_executable(
   test_dynamic_prog_maximum_weight_of_independent_set.cpp
   test_huffman_frequency.cpp
   test_insertion_sort.cpp
+  test_johnsons_algorithm.cpp
   test_knapsack_problem.cpp
   test_main.cpp
   test_max_spacing_k_clustering.cpp
